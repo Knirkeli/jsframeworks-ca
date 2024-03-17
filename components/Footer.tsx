@@ -13,7 +13,7 @@ const links = [
   { name: "Cart", href: "/Cart" },
 ];
 
-export default function Navbar() {
+export default function Footer() {
   const pathname = usePathname();
   return (
     <header className="mb-8 border-b">
