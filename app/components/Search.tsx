@@ -17,7 +17,7 @@ export default function Search() {
         placeholder="Search..."
         value={searchTerm}
         onChange={handleChange}
-        className="w-1/2 border"
+        className="w-1/2 border-black border-2"
       />
       <Button
         variant={"default"}
