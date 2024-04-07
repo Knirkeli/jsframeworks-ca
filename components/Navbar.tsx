@@ -16,17 +16,26 @@ export default function Navbar() {
   const pathname = usePathname();
   const getTotalNumberOfItemsInCart = useProductStore(
     (state) => state.getTotalNumberOfItemsInCart
-  ); // Get the function from the store
+  );
   const [totalItems, setTotalItems] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    setTotalItems(getTotalNumberOfItemsInCart()); // Call the function when the component updates
   }, []);
 
   useEffect(() => {
-    setTotalItems(getTotalNumberOfItemsInCart());
-  }, []);
+    const unsubscribe = useProductStore.subscribe(
+      () => {
+        setTotalItems(getTotalNumberOfItemsInCart());
+      },
+      (state) => state.cart // Listen for changes in the cart state
+    );
+
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => unsubscribe();
+  }, [getTotalNumberOfItemsInCart]);
 
   return (
     <header className="mb-8 border-b">
