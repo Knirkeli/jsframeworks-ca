@@ -102,12 +102,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   }, []); // Run this function when the component mounts
 
   useEffect(() => {
-    const unsubscribe = useProductStore.subscribe(
-      () => {
-        setTotalItems(getTotalNumberOfItemsInCart());
-      },
-      (state: { cart: any }) => state.cart // Listen for changes in the cart state
-    );
+    const unsubscribe = useProductStore.subscribe(() => {
+      setTotalItems(getTotalNumberOfItemsInCart());
+    });
 
     // Cleanup function to unsubscribe when the component unmounts
     return () => unsubscribe();
@@ -141,8 +138,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 className="object-cover object-center rounded-full"
                 src={data.image.url}
                 alt={data.image.alt}
-                width={500}
-                height={500}
+                width={300}
+                height={300}
               />
             </div>
           )}
