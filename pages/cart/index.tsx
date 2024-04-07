@@ -91,7 +91,6 @@ import { Button } from "../../components/ui/button";
 function CartPage() {
   const cart = useProductStore((state) => state.cart);
   const clearCart = useProductStore((state) => state.clearCart);
-  const checkout = useProductStore((state) => state.checkout);
 
   const totalCost = cart
     .reduce((total, product) => {
