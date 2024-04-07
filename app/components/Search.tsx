@@ -41,7 +41,7 @@ import "../../app/globals.css";
 export default function Search() {
   const setSearchTerm = useProductStore((state) => state.setSearchTerm);
 
-  const handleChange = (event) => {
+  const handleChange = (event: { target: { value: string } }) => {
     setSearchTerm(event.target.value);
   };
 
