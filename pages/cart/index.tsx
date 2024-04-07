@@ -79,7 +79,7 @@
 // export default CartPage;
 
 import React from "react";
-import useProductStore from "../../store/cart";
+import useProductStore, { State } from "../../store/cart";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
@@ -89,14 +89,20 @@ import { Product } from "../../types/product";
 import { Button } from "../../components/ui/button";
 
 function CartPage() {
-  const cart = useProductStore((state) => state.cart);
-  const clearCart = useProductStore((state) => state.clearCart);
+  const cart = useProductStore((state: State) => state.cart);
+  const clearCart = useProductStore((state: State) => state.clearCart);
 
   const totalCost = cart
-    .reduce((total, product) => {
-      const price = product.discountedPrice || product.price;
-      return total + price * product.quantity;
-    }, 0)
+    .reduce(
+      (
+        total: number,
+        product: { discountedPrice: any; price: any; quantity: number }
+      ) => {
+        const price = product.discountedPrice || product.price;
+        return total + price * product.quantity;
+      },
+      0
+    )
     .toFixed(2);
 
   return (
