@@ -11,9 +11,7 @@ const ContactPage: React.FC = () => {
     body: "",
   });
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -28,9 +26,10 @@ const ContactPage: React.FC = () => {
       <div className="flex justify-center items-center h-screen bg-gray-200">
         <form
           onSubmit={handleSubmit}
-          className="w-full max-w-lg p-8 space-y-4 bg-white rounded shadow"
+          style={{ maxWidth: "600px" }}
+          className="mx-auto p-8 space-y-6 bg-white rounded shadow border border-gray-300 shadow-lg"
         >
-          <label className="block">
+          <label className="block space-y-3">
             <span className="text-gray-700">Full Name:</span>
             <input
               type="text"
@@ -39,10 +38,10 @@ const ContactPage: React.FC = () => {
               onChange={handleChange}
               required
               minLength={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-gray-200"
             />
           </label>
-          <label className="block">
+          <label className="block space-y-3">
             <span className="text-gray-700">Subject:</span>
             <input
               type="text"
@@ -51,10 +50,10 @@ const ContactPage: React.FC = () => {
               onChange={handleChange}
               required
               minLength={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-gray-200"
             />
           </label>
-          <label className="block">
+          <label className="block space-y-3">
             <span className="text-gray-700">Email:</span>
             <input
               type="email"
@@ -62,10 +61,10 @@ const ContactPage: React.FC = () => {
               value={formData.email}
               onChange={handleChange}
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-gray-200"
             />
           </label>
-          <label className="block">
+          <label className="block space-y-3">
             <span className="text-gray-700">Body:</span>
             <textarea
               name="body"
@@ -73,7 +72,7 @@ const ContactPage: React.FC = () => {
               onChange={handleChange}
               required
               minLength={3}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 border border-gray-200"
             />
           </label>
           <button

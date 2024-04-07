@@ -7,22 +7,19 @@ import { Button } from "../../components/ui/button";
 
 const SuccessPage: React.FC = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <main>
-        <h1>Success!</h1>
-        <p>Your purchase was successful.</p>
-        <Link href="/">
-          <Button
-            variant="default"
-            className="px-4 py-2 mt-2 bg-blue-500 rounded hover:bg-blue-600"
-          >
-            Shop More
-          </Button>
-        </Link>
-      </main>
+      <div className="flex flex-col items-center justify-center min-h-screen py-2">
+        <main className="flex flex-col items-center justify-center space-y-4 p-4">
+          <h1 className="text-4xl font-bold">Success!</h1>
+          <p className="text-xl mb-4">Your purchase was successful.</p>
+          <Link className="mt-4" href="/">
+            <Button variant="outline">Shop More</Button>
+          </Link>
+        </main>
+      </div>
       <Footer />
-    </div>
+    </>
   );
 };
 

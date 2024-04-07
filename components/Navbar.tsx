@@ -16,17 +16,26 @@ export default function Navbar() {
   const pathname = usePathname();
   const getTotalNumberOfItemsInCart = useProductStore(
     (state) => state.getTotalNumberOfItemsInCart
-  ); // Get the function from the store
+  );
   const [totalItems, setTotalItems] = useState(0);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
     setIsClient(true);
+    setTotalItems(getTotalNumberOfItemsInCart()); // Call the function when the component updates
   }, []);
 
   useEffect(() => {
-    setTotalItems(getTotalNumberOfItemsInCart());
-  }, []);
+    const unsubscribe = useProductStore.subscribe(
+      () => {
+        setTotalItems(getTotalNumberOfItemsInCart());
+      },
+      (state) => state.cart // Listen for changes in the cart state
+    );
+
+    // Cleanup function to unsubscribe when the component unmounts
+    return () => unsubscribe();
+  }, [getTotalNumberOfItemsInCart]);
 
   return (
     <header className="mb-8 border-b">
@@ -41,9 +50,16 @@ export default function Navbar() {
             Bubble <span className="text-blue-500">Commerce</span>
           </h1>
         </Link>
-        <nav className="hidden gap-12 lg:flex 2xl:ml-16 mt-auto">
+        <nav className="flex gap-12 lg:flex 2xl:ml-16 mt-auto">
           {links.map((link, idx) => (
-            <div key={idx}>
+            <div
+              key={idx}
+              className={
+                idx === 0 || idx === links.length - 1
+                  ? "hidden lg:flex"
+                  : "flex"
+              }
+            >
               {pathname === link.href ? (
                 <Link
                   className="text-lg font-semibold text-primary"
@@ -69,7 +85,7 @@ export default function Navbar() {
               className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-34 md:w-24 round"
             >
               <ShoppingCart />
-              <span className="hidden text-xs font-semibold sm:block">
+              <span className="text-xs font-semibold sm:block">
                 Cart {isClient ? `(${totalItems})` : ""}
               </span>{" "}
               {/* Display the total number of items */}
