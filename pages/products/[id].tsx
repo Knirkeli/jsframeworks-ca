@@ -1,6 +1,6 @@
 // export default ProductPage;
 import React, { useState, useEffect } from "react";
-import { Product } from "../../app/components/Products";
+import Product from "../../app/components/Products";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../../components/Navbar";
@@ -10,7 +10,7 @@ import useProductStore from "../../store/cart"; // Import the store
 import { Button } from "@/components/ui/button";
 
 interface ProductPageProps {
-  product: Product;
+  product: typeof Product;
 }
 
 const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
