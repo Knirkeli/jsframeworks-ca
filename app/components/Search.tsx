@@ -35,16 +35,13 @@ import React from "react";
 import Link from "next/link";
 import { Button } from "../../components/ui/button";
 import { SearchIcon } from "lucide-react";
-import useProductStore from "../../store/cart"; // Import your Zustand store
+import useProductStore, { State } from "../../store/cart"; // Import your Zustand store and State interface
 import "../../app/globals.css";
-import { StateType } from "../../store/cart"; // Import or define the type StateType
 
 export default function Search() {
-  const setSearchTerm = useProductStore(
-    (state: StateType) => state.setSearchTerm
-  );
+  const setSearchTerm = useProductStore((state: State) => state.setSearchTerm);
 
-  const handleChange = (event: { target: { value: string } }) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
 

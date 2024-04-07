@@ -1,11 +1,10 @@
-// export default useProductStore;
 "use client";
 import { create } from "zustand";
 import { persist, PersistConfig } from "zustand/middleware";
 import { API_PRODUCTS } from "../app/Shared/api";
 import { Product } from "../types/product"; // import the Product interface
 
-interface State {
+export interface State {
   products: Product[];
   cart: Product[];
   searchTerm: string;
