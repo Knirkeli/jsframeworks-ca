@@ -10,10 +10,12 @@ import "../../app/globals.css";
 
 export default function Products() {
   const { data, isLoading, isError } = useFetch(API_PRODUCTS);
-  const { searchTerm, setProducts } = useProductStore((state) => ({
-    searchTerm: state.searchTerm,
-    setProducts: state.setProducts,
-  }));
+  const { searchTerm, setProducts } = useProductStore(
+    (state: { searchTerm: string; setProducts: Function }) => ({
+      searchTerm: state.searchTerm,
+      setProducts: state.setProducts,
+    })
+  );
 
   React.useEffect(() => {
     if (data && data.data) {
