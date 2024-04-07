@@ -45,21 +45,13 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   console.log("productData:", productData);
 
   // Render a message if there is no product data
-  if (!productData || !productData.data) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-screen py-2">
-        <Navbar />
-        <div className="text-lg text-center text-red-500">
-          No product data available. Please check the product ID or your fetch
-          URL.
-        </div>
-        <Footer />
-      </div>
-    );
+  let data: any = null;
+  if (productData && "data" in productData) {
+    data = productData.data;
   }
 
   // Destructure the data from the product data
-  const { data } = productData;
+  // const { data } = productData as { data: any };
 
   // Render the product page
   return (
@@ -87,7 +79,7 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
               </p>
               <h2 className="text-xl font-bold mb-2">Reviews:</h2>
               {data.reviews && data.reviews.length > 0 ? (
-                data.reviews.map((review, index) => (
+                data.reviews.map((review: any, index: number) => (
                   <div key={index} className="mb-4">
                     <h4 className="text-lg font-bold">{review.username}</h4>
                     <p>{review.description}</p>
@@ -120,8 +112,15 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
 };
 
 // Define the getServerSideProps function to fetch the product data
-export async function getServerSideProps(context) {
-  const { id } = context.params;
+import { GetServerSidePropsContext } from "next";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  let id = null;
+  if (context.params) {
+    const { id: productId } = context.params;
+    id = productId;
+  }
+
   let product = null;
 
   try {
