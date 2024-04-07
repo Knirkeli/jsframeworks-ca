@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
-import useProductStore from "../store/cart";
+import useProductStore, { State } from "../store/cart";
 
 const links = [
   { name: "Home", href: "/" },
@@ -15,7 +15,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const getTotalNumberOfItemsInCart = useProductStore(
-    (state) => state.getTotalNumberOfItemsInCart
+    (state: State) => state.getTotalNumberOfItemsInCart
   );
   const [totalItems, setTotalItems] = useState(0);
   const [isClient, setIsClient] = useState(false);
