@@ -5,7 +5,7 @@ import Image from "next/image";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import "../../app/globals.css";
-import useProductStore from "../../store/cart"; // Import the store
+import useProductStore, { State } from "../../store/cart";
 import { Button } from "@/components/ui/button";
 
 // Define the props for the ProductPage component
@@ -20,10 +20,10 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   const [totalItems, setTotalItems] = useState(0);
 
   // Define functions from the product store
-  const addToCart = useProductStore((state) => state.addToCart);
-  const logCart = useProductStore((state) => state.logCart);
+  const addToCart = useProductStore((state: State) => state.addToCart);
+  const logCart = useProductStore((state: State) => state.logCart);
   const getTotalNumberOfItemsInCart = useProductStore(
-    (state) => state.getTotalNumberOfItemsInCart
+    (state: State) => state.getTotalNumberOfItemsInCart
   );
 
   // Use an effect to set the total items when the component mounts
