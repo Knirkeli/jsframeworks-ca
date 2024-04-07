@@ -228,8 +228,8 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 ))
               ) : (
                 <p>
-                  I'm new and have not been reviewed yet. Feel free to leave a
-                  review when you have received me.
+                  I&apos;m new and have not been reviewed yet. Feel free to
+                  leave a review when you have received me.
                 </p>
               )}
             </div>
