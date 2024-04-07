@@ -26,12 +26,9 @@ export default function Navbar() {
   }, []);
 
   useEffect(() => {
-    const unsubscribe = useProductStore.subscribe(
-      () => {
-        setTotalItems(getTotalNumberOfItemsInCart());
-      },
-      (state) => state.cart // Listen for changes in the cart state
-    );
+    const unsubscribe = useProductStore.subscribe(() => {
+      setTotalItems(getTotalNumberOfItemsInCart());
+    });
 
     // Cleanup function to unsubscribe when the component unmounts
     return () => unsubscribe();
@@ -87,8 +84,7 @@ export default function Navbar() {
               <ShoppingCart />
               <span className="text-xs font-semibold sm:block">
                 Cart {isClient ? `(${totalItems})` : ""}
-              </span>{" "}
-              {/* Display the total number of items */}
+              </span>
             </Button>
           </Link>
         </div>
