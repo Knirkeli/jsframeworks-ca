@@ -50,9 +50,16 @@ export default function Navbar() {
             Bubble <span className="text-blue-500">Commerce</span>
           </h1>
         </Link>
-        <nav className="hidden gap-12 lg:flex 2xl:ml-16 mt-auto">
+        <nav className="flex gap-12 lg:flex 2xl:ml-16 mt-auto">
           {links.map((link, idx) => (
-            <div key={idx}>
+            <div
+              key={idx}
+              className={
+                idx === 0 || idx === links.length - 1
+                  ? "hidden lg:flex"
+                  : "flex"
+              }
+            >
               {pathname === link.href ? (
                 <Link
                   className="text-lg font-semibold text-primary"
@@ -78,7 +85,7 @@ export default function Navbar() {
               className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-34 md:w-24 round"
             >
               <ShoppingCart />
-              <span className="hidden text-xs font-semibold sm:block">
+              <span className="text-xs font-semibold sm:block">
                 Cart {isClient ? `(${totalItems})` : ""}
               </span>{" "}
               {/* Display the total number of items */}

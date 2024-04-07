@@ -4,7 +4,7 @@
 // import Image from "next/image";
 // import Link from "next/link";
 // import { API_PRODUCTS } from "../Shared/api";
-// import { Product } from "../../types/product";
+// import { Product, calculateDiscountedPrice } from "../../types/product";
 // import useProductStore from "../../store/cart";
 // import "../../app/globals.css";
 
@@ -48,6 +48,12 @@
 //             <Link href={`/products/${product.id}`}>
 //               <div className="bubble-card-content rounded-full shadow-lg flex flex-col items-center justify-between p-4 hover:text-blue-500">
 //                 <h3 className="text-center text-2xl wrap">{product.title}</h3>
+//                 {product.discountedPrice &&
+//                   calculateDiscountedPrice(product) !== "0%" && (
+//                     <div className="discount-banner">
+//                       {calculateDiscountedPrice(product)}
+//                     </div>
+//                   )}
 //                 <div className="w-55 h-55 rounded-full overflow-hidden">
 //                   <Image
 //                     src={product.image.url}
@@ -57,7 +63,12 @@
 //                     objectFit="cover"
 //                   />
 //                 </div>
-//                 <p className="text-center cursor-pointer">{product.price} KR</p>
+//                 <p className="text-center cursor-pointer">
+//                   {product.discountedPrice
+//                     ? product.discountedPrice
+//                     : product.price}{" "}
+//                   KR
+//                 </p>
 //               </div>
 //             </Link>
 //           </div>
@@ -112,27 +123,29 @@ export default function Products() {
         {filteredProducts.map((product: Product) => (
           <div
             key={product.id}
-            className="m-4 transform transition duration-500 ease-in-out"
+            className="m-4 transform transition duration-500 ease-in-out sm:w-full md:w-1/2 lg:w-1/3 xl:w-1/4"
           >
             <Link href={`/products/${product.id}`}>
               <div className="bubble-card-content rounded-full shadow-lg flex flex-col items-center justify-between p-4 hover:text-blue-500">
-                <h3 className="text-center text-2xl wrap">{product.title}</h3>
+                <h3 className="text-center text-2xl sm:text-xl wrap">
+                  {product.title}
+                </h3>
                 {product.discountedPrice &&
                   calculateDiscountedPrice(product) !== "0%" && (
                     <div className="discount-banner">
                       {calculateDiscountedPrice(product)}
                     </div>
                   )}
-                <div className="w-55 h-55 rounded-full overflow-hidden">
+                <div className="w-55 h-55 sm:w-40 sm:h-40 rounded-full overflow-hidden">
                   <Image
                     src={product.image.url}
                     alt={product.image.alt}
-                    width={400}
-                    height={400}
+                    width={200}
+                    height={200}
                     objectFit="cover"
                   />
                 </div>
-                <p className="text-center cursor-pointer">
+                <p className="text-center cursor-pointer sm:text-sm">
                   {product.discountedPrice
                     ? product.discountedPrice
                     : product.price}{" "}
