@@ -1,20 +1,33 @@
 "use client";
-
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Button } from "./ui/button";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
+import useProductStore from "../store/cart";
 
 const links = [
   { name: "Home", href: "/" },
-  { name: "Sale", href: "/Sale" },
-  { name: "Contact", href: "/Contact" },
-  { name: "About", href: "/About" },
-  { name: "Cart", href: "/Cart" },
+  { name: "Contact", href: "/contact" },
+  { name: "Cart", href: "/cart" },
 ];
 
 export default function Navbar() {
   const pathname = usePathname();
+  const getTotalNumberOfItemsInCart = useProductStore(
+    (state) => state.getTotalNumberOfItemsInCart
+  ); // Get the function from the store
+  const [totalItems, setTotalItems] = useState(0);
+  const [isClient, setIsClient] = useState(false);
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  useEffect(() => {
+    setTotalItems(getTotalNumberOfItemsInCart());
+  }, []);
+
   return (
     <header className="mb-8 border-b">
       <div className="flex items center justify-between mx-auto max-w-2xl px-4 sm:px-6 lg:max-w-7xl">
@@ -50,13 +63,18 @@ export default function Navbar() {
           ))}
         </nav>
         <div className="flex divide-x border-r sm:border-l">
-          <Button
-            variant={"default"}
-            className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-34 md:w-24 round"
-          >
-            <ShoppingCart />
-            <span className="hidden text-xs font-semibold sm:block">Cart</span>
-          </Button>
+          <Link href="/cart">
+            <Button
+              variant={"default"}
+              className="flex flex-col gap-y-1.5 h-12 w-12 sm:h-20 sm:w-20 md:h-34 md:w-24 round"
+            >
+              <ShoppingCart />
+              <span className="hidden text-xs font-semibold sm:block">
+                Cart {isClient ? `(${totalItems})` : ""}
+              </span>{" "}
+              {/* Display the total number of items */}
+            </Button>
+          </Link>
         </div>
       </div>
     </header>
