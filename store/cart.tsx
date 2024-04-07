@@ -138,6 +138,7 @@ interface State {
   cart: Product[];
   searchTerm: string;
   fetchProducts: () => Promise<void>;
+  setProducts: (products: Product[]) => void; // Add this line
   setSearchTerm: (searchTerm: string) => void;
   addToCart: (product: Product) => void;
   clearCart: () => void;
@@ -160,6 +161,7 @@ const useProductStore = create<State>(
         const json = await response.json();
         set((state) => ({ ...state, products: json.data }));
       },
+      setProducts: (products: Product[]) => set({ products }), // Add this line
       setSearchTerm: (searchTerm) => set({ searchTerm }),
       addToCart: (product: Product) => {
         set((state) => {
