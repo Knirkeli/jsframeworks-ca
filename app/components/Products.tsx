@@ -80,7 +80,11 @@ import Link from "next/link";
 import { Product } from "../../types/product"; // import the Product interface
 import useProductStore from "../../store/cart"; // Import your Zustand store
 
-export default function Products({ initialProducts }) {
+export default function Products({
+  initialProducts,
+}: {
+  initialProducts: Product[];
+}) {
   const { products, searchTerm, setProducts } = useProductStore((state) => ({
     products: state.products,
     searchTerm: state.searchTerm,
@@ -91,7 +95,7 @@ export default function Products({ initialProducts }) {
     if (initialProducts) {
       setProducts(initialProducts);
     }
-  }, [initialProducts]);
+  }, [initialProducts, setProducts]);
 
   const filteredProducts = products.filter((product) =>
     product.title.toLowerCase().includes(searchTerm.toLowerCase())
