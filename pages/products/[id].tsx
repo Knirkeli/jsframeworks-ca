@@ -99,11 +99,11 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 }}
               >
                 Add to cart
-              </Button>{" "}
+              </Button>
             </div>
           </div>
         </div>
-      </div>{" "}
+      </div>
       <Footer />
     </>
   );
