@@ -20,10 +20,9 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
   const [totalItems, setTotalItems] = useState(0);
 
   // Define functions from the product store
-  const addToCart = useProductStore((state: State) => state.addToCart);
-  const logCart = useProductStore((state: State) => state.logCart);
+  const addToCart = useProductStore((state) => (state as State).addToCart);
   const getTotalNumberOfItemsInCart = useProductStore(
-    (state: State) => state.getTotalNumberOfItemsInCart
+    (state) => (state as State).getTotalNumberOfItemsInCart
   );
 
   // Use an effect to set the total items when the component mounts
@@ -97,7 +96,6 @@ const ProductPage: React.FC<ProductPageProps> = ({ product }) => {
                 variant={"outline"}
                 onClick={() => {
                   addToCart(data);
-                  logCart();
                 }}
               >
                 Add to cart

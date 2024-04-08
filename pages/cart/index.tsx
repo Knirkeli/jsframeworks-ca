@@ -89,8 +89,8 @@ import { Product } from "../../types/product";
 import { Button } from "../../components/ui/button";
 
 function CartPage() {
-  const cart = useProductStore((state: State) => state.cart);
-  const clearCart = useProductStore((state: State) => state.clearCart);
+  const cart = useProductStore((state) => (state as State).cart);
+  const clearCart = useProductStore((state) => (state as State).clearCart);
 
   const totalCost = cart
     .reduce(

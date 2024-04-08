@@ -5,17 +5,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { API_PRODUCTS } from "../Shared/api";
 import { Product, calculateDiscountedPrice } from "../../types/product";
-import useProductStore from "../../store/cart";
+import useProductStore, { State } from "../../store/cart";
 import "../../app/globals.css";
 
 export default function Products() {
   const { data, isLoading, isError } = useFetch(API_PRODUCTS);
-  const { searchTerm, setProducts } = useProductStore(
-    (state: { searchTerm: string; setProducts: Function }) => ({
-      searchTerm: state.searchTerm,
-      setProducts: state.setProducts,
-    })
-  );
+  const { searchTerm, setProducts } = useProductStore((state) => ({
+    searchTerm: (state as State).searchTerm,
+    setProducts: (state as State).setProducts,
+  }));
 
   React.useEffect(() => {
     if (data && data.data) {

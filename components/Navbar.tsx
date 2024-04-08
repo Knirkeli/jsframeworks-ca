@@ -15,7 +15,7 @@ const links = [
 export default function Navbar() {
   const pathname = usePathname();
   const getTotalNumberOfItemsInCart = useProductStore(
-    (state: State) => state.getTotalNumberOfItemsInCart
+    (state) => (state as State).getTotalNumberOfItemsInCart
   );
   const [totalItems, setTotalItems] = useState(0);
   const [isClient, setIsClient] = useState(false);

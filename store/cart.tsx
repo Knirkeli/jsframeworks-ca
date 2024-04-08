@@ -1,8 +1,8 @@
 "use client";
 import { create } from "zustand";
-import { persist, PersistConfig } from "zustand/middleware";
+import { persist } from "zustand/middleware";
 import { API_PRODUCTS } from "../app/Shared/api";
-import { Product } from "../types/product"; // import the Product interface
+import { Product } from "../types/product";
 
 export interface State {
   products: Product[];
@@ -21,10 +21,8 @@ export interface State {
   logCart: () => void;
 }
 
-type MyState = State & PersistConfig<State>;
-
-const useProductStore = create<MyState>(
-  persist<State>(
+const useProductStore = create(
+  persist(
     (set, get) => ({
       products: [],
       cart: [],
@@ -32,12 +30,14 @@ const useProductStore = create<MyState>(
       fetchProducts: async () => {
         const response = await fetch(API_PRODUCTS);
         const json = await response.json();
-        set((state) => ({ ...state, products: json.data }));
+        set((state: State) => ({ ...state, products: json.data }));
       },
-      setProducts: (products: Product[]) => set({ products }),
-      setSearchTerm: (searchTerm) => set({ searchTerm }),
+      setProducts: (products: Product[]) =>
+        set((state: State) => ({ ...state, products })),
+      setSearchTerm: (searchTerm: string) =>
+        set((state: State) => ({ ...state, searchTerm })),
       addToCart: (product: Product) => {
-        set((state) => {
+        set((state: State) => {
           const productInCartIndex = state.cart.findIndex(
             (cartItem) => cartItem.id === product.id
           );
@@ -52,13 +52,10 @@ const useProductStore = create<MyState>(
           return { ...state, cart: updatedCart };
         });
       },
-      logCart: () => {
-        const { cart } = get();
-        console.log(cart);
-      },
-      clearCart: () => set(() => ({ cart: [] })),
+
+      clearCart: () => set((state: State) => ({ ...state, cart: [] })),
       deleteProductFromCart: (id: string) =>
-        set((state) => {
+        set((state: State) => {
           const updatedCart = state.cart.filter((product: Product) => {
             if (product.id === id) {
               return false;
@@ -68,18 +65,18 @@ const useProductStore = create<MyState>(
           return { ...state, cart: updatedCart };
         }),
       getCartTotal: () =>
-        get().cart.reduce((total: number, product: Product) => {
+        (get() as State).cart.reduce((total: number, product: Product) => {
           const currentPrice = product.quantity * product.price;
           total += currentPrice;
           return total;
         }, 0),
       getTotalNumberOfItemsInCart: () =>
-        get().cart.reduce((total: number, product: Product) => {
+        (get() as State).cart.reduce((total: number, product: Product) => {
           total += product.quantity;
           return total;
         }, 0),
       deleteSingleProductFromCart: (id: string) =>
-        set((state) => {
+        set((state: State) => {
           const productInCartIndex = state.cart.findIndex(
             (currentProduct: Product) => id === currentProduct.id
           );
@@ -96,7 +93,7 @@ const useProductStore = create<MyState>(
           return { ...state, cart: updatedCart };
         }),
       addSingleProductToCart: (id: string) =>
-        set((state) => {
+        set((state: State) => {
           const productInCartIndex = state.cart.findIndex(
             (currentProduct: Product) => id === currentProduct.id
           );
