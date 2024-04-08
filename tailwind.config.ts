@@ -1,6 +1,6 @@
 import type { Config } from "tailwindcss"
 
-const config: Config = {
+const config: any = {
   darkMode: ["class"],
   purge: {
     content: [
